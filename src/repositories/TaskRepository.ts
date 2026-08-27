@@ -1,4 +1,4 @@
-import pool from '../db';
+import { pool } from '../db';
 import { Task } from '../models/Task';
 
 export class TaskRepository {
@@ -8,7 +8,7 @@ export class TaskRepository {
     const result = await pool.query('SELECT * FROM tasks ORDER BY created_at DESC');
     
     // แปลงข้อมูลจาก Database (Row) ให้กลายเป็น Object ของคลาส Task (OOP)
-    return result.rows.map(row => 
+    return result.rows.map((row: any) => 
       new Task(row.id, row.title, row.description, row.is_completed, row.created_at)
     );
   }
